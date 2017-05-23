@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="500.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admin.AdminController">
+   <children>
+      <TabPane prefHeight="622.0" prefWidth="956.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab fx:id="students_tab" text="uczniowie">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="349.0">
+                     <children>
+                        <HBox layoutX="280.0" layoutY="1.0" prefHeight="543.0" prefWidth="516.0">
+                           <children>
+                              <TableView fx:id="listOfStudents" minHeight="-Infinity" minWidth="-Infinity" prefHeight="543.0" prefWidth="655.0">
+                                <columns>
+                                  <TableColumn fx:id="idColumn" prefWidth="52.0" text="ID" />
+                                  <TableColumn fx:id="firstNameColumn" prefWidth="104.0" text="Imię" />
+                                    <TableColumn fx:id="lastNameColumn" prefWidth="124.0" text="Nazwisko" />
+                                    <TableColumn fx:id="birthDayColumn" prefWidth="100.0" text="Data urodzenia" />
+                                    <TableColumn fx:id="emailColumn" prefWidth="142.0" text="Email" />
+                                    <TableColumn fx:id="passwordColumn" prefWidth="116.0" text="Hasło" />
+                                </columns>
+                              </TableView>
+                           </children>
+                        </HBox>
+                        <VBox layoutX="2.0" prefHeight="509.0" prefWidth="279.0">
+                           <children>
+                              <Label prefHeight="34.0" prefWidth="154.0" text="Zarządzanie uczniami" textAlignment="CENTER">
+                                 <VBox.margin>
+                                    <Insets left="70.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TextField fx:id="idField" prefHeight="41.0" prefWidth="279.0" promptText="ID">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="firstNameField" prefHeight="41.0" prefWidth="279.0" promptText="Imię">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="lastNameField" prefHeight="41.0" prefWidth="279.0" promptText="Nazwisko">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <DatePicker fx:id="birthDayField" prefHeight="41.0" prefWidth="259.0">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" />
+                                 </VBox.margin>
+                              </DatePicker>
+                              <TextField fx:id="emailField" prefHeight="41.0" promptText="Email">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" />
+                                 </VBox.margin>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </TextField>
+                              <PasswordField fx:id="passwordField" prefHeight="41.0" promptText="Hasło">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" />
+                                 </VBox.margin>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </PasswordField>
+                              <Button fx:id="addStudentButton" maxHeight="66.0" maxWidth="261.0" mnemonicParsing="false" onAction="#addStudent" prefHeight="25.0" prefWidth="274.0" style="-fx-background-color: rgb(127, 219, 94);" text="Dodaj" textFill="WHITE">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button maxHeight="66.0" maxWidth="261.0" mnemonicParsing="false" onAction="#clearFields" style="-fx-background-color: #F6F6F6; -fx-border-color: #d8d8d8;" text="Wyczyść formularz">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button fx:id="editStudentBtn" mnemonicParsing="false" onAction="#editStudent" prefHeight="25.0" prefWidth="269.0" style="-fx-background-color: #ffaf4f;" text="Edytuj" textFill="WHITE">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#deleteStudent" prefHeight="25.0" prefWidth="270.0" style="-fx-background-color: #ff4f4f;" text="Usuń" textFill="WHITE">
+                                 <opaqueInsets>
+                                    <Insets left="10.0" right="10.0" />
+                                 </opaqueInsets>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button fx:id="listAllStudentsBtn" maxHeight="66.0" maxWidth="261.0" mnemonicParsing="false" onAction="#loadStudentData" style="-fx-background-color: #4fb2ff;" text="Załaduj liste studentów">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab fx:id="teacher_tab" onSelectionChanged="#selectedTab" text="nauczyciele">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="349.0">
+                     <children>
+                        <HBox layoutX="280.0" layoutY="1.0" prefHeight="543.0" prefWidth="516.0">
+                           <children>
+                              <TableView fx:id="listOfTeachers" minHeight="-Infinity" minWidth="-Infinity" prefHeight="543.0" prefWidth="655.0">
+                                 <columns>
+                                    <TableColumn fx:id="t_idColumn" prefWidth="52.0" text="ID" />
+                                    <TableColumn fx:id="t_firstNameColumn" prefWidth="104.0" text="Imię" />
+                                    <TableColumn fx:id="t_lastNameColumn" prefWidth="124.0" text="Nazwisko" />
+                                    <TableColumn fx:id="t_birthDayColumn" prefWidth="100.0" text="Data urodzenia" />
+                                    <TableColumn fx:id="t_emailColumn" prefWidth="142.0" text="Email" />
+                                    <TableColumn fx:id="t_passwordColumn" prefWidth="116.0" text="Hasło" />
+                                 </columns>
+                              </TableView>
+                           </children>
+                        </HBox>
+                        <VBox layoutX="2.0" prefHeight="509.0" prefWidth="279.0">
+                           <children>
+                              <Label prefHeight="34.0" prefWidth="154.0" text="Zarządzanie nauczycielami" textAlignment="CENTER">
+                                 <VBox.margin>
+                                    <Insets left="70.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TextField fx:id="teacher_idField" prefHeight="41.0" prefWidth="279.0" promptText="ID">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="teacher_firstNameField" prefHeight="41.0" prefWidth="279.0" promptText="Imię">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="teacher_lastNameField" prefHeight="41.0" prefWidth="279.0" promptText="Nazwisko">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <DatePicker fx:id="teacher_birthDayField" prefHeight="41.0" prefWidth="259.0">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" />
+                                 </VBox.margin>
+                              </DatePicker>
+                              <TextField fx:id="teacher_emailField" prefHeight="41.0" promptText="Email">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" />
+                                 </VBox.margin>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </TextField>
+                              <PasswordField fx:id="teacher_passwordField" prefHeight="41.0" promptText="Hasło">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" />
+                                 </VBox.margin>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </PasswordField>
+                              <Button fx:id="teacher_addButton" maxHeight="66.0" maxWidth="261.0" mnemonicParsing="false" onAction="#addTeacher" prefHeight="25.0" prefWidth="274.0" style="-fx-background-color: rgb(127, 219, 94);" text="Dodaj" textFill="WHITE">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button maxHeight="66.0" maxWidth="261.0" mnemonicParsing="false" onAction="#clearTeacherFields" style="-fx-background-color: #F6F6F6; -fx-border-color: #d8d8d8;" text="Wyczyść formularz">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button fx:id="editTeacherBtn" mnemonicParsing="false" onAction="#editTeacher" prefHeight="25.0" prefWidth="269.0" style="-fx-background-color: #ffaf4f;" text="Edytuj" textFill="WHITE">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button fx:id="deleteTeacherBtn" mnemonicParsing="false" onAction="#deleteTeacher" prefHeight="25.0" prefWidth="270.0" style="-fx-background-color: #ff4f4f;" text="Usuń" textFill="WHITE">
+                                 <opaqueInsets>
+                                    <Insets left="10.0" right="10.0" />
+                                 </opaqueInsets>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button fx:id="teacher_loadListBtn" maxHeight="66.0" maxWidth="261.0" mnemonicParsing="false" onAction="#loadTeacherData" style="-fx-background-color: #4fb2ff;" text="Załaduj liste nauczycieli">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="course_tab" onSelectionChanged="#selectedTab" text="kursy">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="349.0">
+                     <children>
+                        <HBox layoutX="280.0" layoutY="1.0" prefHeight="543.0" prefWidth="516.0">
+                           <children>
+                              <TableView fx:id="listOfCourses" minHeight="-Infinity" minWidth="-Infinity" prefHeight="543.0" prefWidth="655.0">
+                                 <columns>
+                                    <TableColumn fx:id="course_LP_column" prefWidth="52.0" text="LP" />
+                                    <TableColumn fx:id="courseNameColumn" prefWidth="137.0" text="Nazwa" />
+                                    <TableColumn fx:id="courseDescColumn" prefWidth="262.0" text="Opis" />
+                                    <TableColumn fx:id="coursePriceColumn" minWidth="0.0" prefWidth="169.0" text="Cena" />
+                                 </columns>
+                              </TableView>
+                           </children>
+                        </HBox>
+                        <VBox layoutX="2.0" prefHeight="509.0" prefWidth="279.0">
+                           <children>
+                              <Label prefHeight="34.0" prefWidth="154.0" text="Zarządzanie Kursami" textAlignment="CENTER">
+                                 <VBox.margin>
+                                    <Insets left="70.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TextField fx:id="courseIDField" prefHeight="41.0" prefWidth="279.0" promptText="ID">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="couseNameField" prefHeight="41.0" prefWidth="279.0" promptText="Nazwa kursu">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextArea fx:id="courseDescriptionField" prefHeight="123.0" prefWidth="279.0" promptText="Opis kursu">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </TextArea>
+                              <TextField fx:id="coursePriceField" prefHeight="44.0" prefWidth="259.0" promptText="Cena">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <ComboBox fx:id="courseGrade_combobox" onAction="#loadGradeCombo" prefHeight="25.0" prefWidth="272.0" promptText="Ocena">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </ComboBox>
+                              <Button fx:id="course_addButton" maxHeight="66.0" maxWidth="261.0" mnemonicParsing="false" onAction="#addCourse" prefHeight="25.0" prefWidth="274.0" style="-fx-background-color: rgb(127, 219, 94);" text="Dodaj" textFill="WHITE">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button maxHeight="66.0" maxWidth="261.0" mnemonicParsing="false" onAction="#clearCourseFields" style="-fx-background-color: #F6F6F6; -fx-border-color: #d8d8d8;" text="Wyczyść formularz">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button fx:id="editCourseBtn" mnemonicParsing="false" onAction="#editCourse" prefHeight="25.0" prefWidth="269.0" style="-fx-background-color: #ffaf4f;" text="Edytuj" textFill="WHITE">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button fx:id="deleteCourseBtn" mnemonicParsing="false" onAction="#deleteCourse" prefHeight="25.0" prefWidth="270.0" style="-fx-background-color: #ff4f4f;" text="Usuń" textFill="WHITE">
+                                 <opaqueInsets>
+                                    <Insets left="10.0" right="10.0" />
+                                 </opaqueInsets>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button fx:id="course_loadListBtn" maxHeight="66.0" maxWidth="261.0" mnemonicParsing="false" onAction="#loadCourseData" style="-fx-background-color: #4fb2ff;" text="Załaduj liste kursów">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="class_tab" onSelectionChanged="#selectedTab" text="klasa">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="349.0">
+                     <children>
+                        <HBox layoutX="280.0" layoutY="1.0" prefHeight="543.0" prefWidth="516.0">
+                           <children>
+                              <TableView fx:id="listOfClasses" minHeight="-Infinity" minWidth="-Infinity" prefHeight="543.0" prefWidth="655.0">
+                                 <columns>
+                                    <TableColumn fx:id="class_LP_column" prefWidth="52.0" text="LP" />
+                                    <TableColumn fx:id="classNameColumn" prefWidth="137.0" text="Nazwa" />
+                                    <TableColumn fx:id="classYearColumn" prefWidth="138.0" text="Rok" />
+                                    <TableColumn fx:id="classRemarksColumn" minWidth="0.0" prefWidth="159.0" text="Oznaczenia" />
+                                    <TableColumn fx:id="classStatusColumn" minWidth="0.0" prefWidth="160.0" text="Status" />
+                                 </columns>
+                              </TableView>
+                           </children>
+                        </HBox>
+                        <VBox layoutX="2.0" prefHeight="509.0" prefWidth="279.0">
+                           <children>
+                              <Label prefHeight="34.0" prefWidth="154.0" text="Zarządzanie Klasami" textAlignment="CENTER">
+                                 <VBox.margin>
+                                    <Insets left="70.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TextField fx:id="classIDField" prefHeight="41.0" prefWidth="279.0" promptText="ID">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="classNameField" prefHeight="41.0" prefWidth="279.0" promptText="Nazwa klasy">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="classYearField" prefHeight="44.0" prefWidth="259.0" promptText="Rok">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="classRemarksField" prefHeight="41.0" promptText="Oznaczenia">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="classStatusField" prefHeight="41.0" promptText="Status">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <Button fx:id="class_addButton" maxHeight="66.0" maxWidth="261.0" mnemonicParsing="false" onAction="#addClass" prefHeight="25.0" prefWidth="274.0" style="-fx-background-color: rgb(127, 219, 94);" text="Dodaj" textFill="WHITE">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button maxHeight="66.0" maxWidth="261.0" mnemonicParsing="false" onAction="#clearClassFields" style="-fx-background-color: #F6F6F6; -fx-border-color: #d8d8d8;" text="Wyczyść formularz">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button fx:id="editClassBtn" mnemonicParsing="false" onAction="#editClass" prefHeight="25.0" prefWidth="269.0" style="-fx-background-color: #ffaf4f;" text="Edytuj" textFill="WHITE">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button fx:id="deleteClassBtn" mnemonicParsing="false" onAction="#deleteClass" prefHeight="25.0" prefWidth="270.0" style="-fx-background-color: #ff4f4f;" text="Usuń" textFill="WHITE">
+                                 <opaqueInsets>
+                                    <Insets left="10.0" right="10.0" />
+                                 </opaqueInsets>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button fx:id="classLoadListBtn" maxHeight="66.0" maxWidth="261.0" mnemonicParsing="false" onAction="#loadClassData" style="-fx-background-color: #4fb2ff;" text="Załaduj liste klas">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
