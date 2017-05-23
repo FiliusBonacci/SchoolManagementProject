@@ -117,10 +117,18 @@ public class AdminController implements Initializable {
     @FXML
     TableView<ClassData> listOfClasses;
     ObservableList<ClassData> classesList;
-    //-------------------------------------
+    //--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    // dla zakładki klasa kurs
+    @FXML
+    ComboBox classCourse_Class_combobox , classCourse_Course_combobox;
+    ObservableList classCourse_Class_ObsList =  FXCollections.observableArrayList();
+    ObservableList classCourse_Course_ObsList =  FXCollections.observableArrayList();
+    @FXML
+    Tab classCourse_tab;
 
 
-
+    //-----------------------------------------------------------------------------------------------
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.db = new dbConnection();
@@ -150,19 +158,18 @@ public class AdminController implements Initializable {
                             birthDayField.setValue(null);
                         }
 
-                        emailField.setText(selectedR.getEmail());
                         passwordField.setText(selectedR.getPassword());
-
+                        emailField.setText(selectedR.getEmail());
 
                         System.out.println(selectedR.getFirstName());
 
                     } catch (NullPointerException e) {
+                        idField.setText(null);
                         firstNameField.setText(null);
                         lastNameField.setText(null);
-                        idField.setText(null);
-                        emailField.setText(null);
                         birthDayField.setValue(null);
                         passwordField.setText(null);
+                        emailField.setText(null);
                     }
 
                 }
@@ -629,6 +636,11 @@ public class AdminController implements Initializable {
                 }
             });
 
+        }// za ifem
+
+        if (classCourse_tab.isSelected()){
+            loadClassCourseCombo();
+            System.out.println("w ifie");
         }
     }
 
@@ -785,4 +797,58 @@ public class AdminController implements Initializable {
 
 
     }
+
+    // ------- załaduj comboboxa z bazy
+    @FXML
+    public void loadClassCourseCombo(){
+
+        String query = "SELECT * from class_course;";
+
+        try{
+            Connection conn = dbConnection.getConnection();
+            ResultSet rs = conn.prepareStatement(query).executeQuery();
+
+            while(rs.next()){
+                String classID = rs.getString("class_id");
+                String courseID = rs.getString("course_id");
+
+                // dla class bomboboxa
+                String query1 = "SELECT * FROM class where class_id=?;";
+                PreparedStatement p1 = conn.prepareStatement(query1);
+                p1.setString(1, classID);
+                ResultSet rq1 = p1.executeQuery();
+                while(rq1.next()){
+
+                    String classRemarks = rq1.getString("remarks");
+                    String className = rq1.getString("name");
+                    String concatenate = classRemarks + " " + className;
+                    System.out.println(concatenate);
+
+                    classCourse_Class_ObsList.add(concatenate);
+                }
+                // dla course bomboboxa
+                String query2 = "SELECT * FROM course where course_id=?;";
+                PreparedStatement p2 = conn.prepareStatement(query2);
+                p2.setString(1, courseID);
+                ResultSet rq2 = p2.executeQuery();
+                while(rq2.next()){
+
+                    String courseName = rq2.getString("name");
+
+                    classCourse_Course_ObsList.add(courseName);
+                }
+
+
+//                classCourse_Course_ObsList.add(courseID);
+            }
+            classCourse_Class_combobox.setItems(classCourse_Class_ObsList);
+            classCourse_Course_combobox.setItems(classCourse_Course_ObsList);
+
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+
+
 }
