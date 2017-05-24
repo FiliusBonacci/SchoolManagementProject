@@ -8,12 +8,12 @@ import javafx.beans.property.StringProperty;
  */
 public class StudentData {
 
-    private final StringProperty ID;
-    private final StringProperty firstName;
-    private final StringProperty lastName;
-    private final StringProperty birthDay;
-    private final StringProperty email;
-    private final StringProperty password;
+    private final SimpleStringProperty ID;
+    private final SimpleStringProperty firstName;
+    private final SimpleStringProperty lastName;
+    private final SimpleStringProperty birthDay;
+    private final SimpleStringProperty email;
+    private final SimpleStringProperty password;
 
     public StudentData(String id, String firstname, String lastname, String dob, String email, String pass){
         this.ID = new SimpleStringProperty(id);
@@ -28,7 +28,7 @@ public class StudentData {
         return ID.get();
     }
 
-    public StringProperty IDProperty() {
+    public SimpleStringProperty IDProperty() {
         return ID;
     }
 
@@ -40,7 +40,7 @@ public class StudentData {
         return firstName.get();
     }
 
-    public StringProperty firstNameProperty() {
+    public SimpleStringProperty firstNameProperty() {
         return firstName;
     }
 
@@ -52,7 +52,7 @@ public class StudentData {
         return lastName.get();
     }
 
-    public StringProperty lastNameProperty() {
+    public SimpleStringProperty lastNameProperty() {
         return lastName;
     }
 
@@ -64,7 +64,7 @@ public class StudentData {
         return birthDay.get();
     }
 
-    public StringProperty birthDayProperty() {
+    public SimpleStringProperty birthDayProperty() {
         return birthDay;
     }
 
@@ -76,7 +76,7 @@ public class StudentData {
         return email.get();
     }
 
-    public StringProperty emailProperty() {
+    public SimpleStringProperty emailProperty() {
         return email;
     }
 
@@ -88,7 +88,7 @@ public class StudentData {
         return password.get();
     }
 
-    public StringProperty passwordProperty() {
+    public SimpleStringProperty passwordProperty() {
         return password;
     }
 

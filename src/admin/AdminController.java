@@ -126,6 +126,15 @@ public class AdminController implements Initializable {
     ObservableList classCourse_Course_ObsList =  FXCollections.observableArrayList();
     @FXML
     Tab classCourse_tab;
+    @FXML
+    TableView<ClassCourseData> listOfClassCourse;
+    ObservableList classCourseList = FXCollections.observableArrayList();
+    @FXML
+    TableColumn classCourse_courseNameColumn, classCourse_classNameColumn;
+    @FXML
+    TableColumn classCourse_courseIDColumn, classCourse_classIDColumn;
+    @FXML
+    private Button classCourseLoadListBtn;
 
 
     //-----------------------------------------------------------------------------------------------
@@ -798,6 +807,11 @@ public class AdminController implements Initializable {
 
     }
 
+    /*****************************************************************************************
+     ********************************* tab ClassCourse ***************************************
+     *****************************************************************************************/
+
+
     // ------- załaduj comboboxa z bazy
     @FXML
     public void loadClassCourseCombo(){
@@ -820,12 +834,14 @@ public class AdminController implements Initializable {
                 while(rq1.next()){
 
                     String classRemarks = rq1.getString("remarks");
-                    String className = rq1.getString("name");
-                    String concatenate = classRemarks + " " + className;
-                    System.out.println(concatenate);
-
-                    classCourse_Class_ObsList.add(concatenate);
+//                    String className = rq1.getString("name");
+//                    String concatenate = classRemarks + " " + className;
+//                    System.out.println(concatenate);
+                    if (!classCourse_Class_ObsList.contains(classRemarks)){
+                        classCourse_Class_ObsList.add(classRemarks);
+                    }
                 }
+
                 // dla course bomboboxa
                 String query2 = "SELECT * FROM course where course_id=?;";
                 PreparedStatement p2 = conn.prepareStatement(query2);
@@ -835,7 +851,9 @@ public class AdminController implements Initializable {
 
                     String courseName = rq2.getString("name");
 
-                    classCourse_Course_ObsList.add(courseName);
+                    if (!classCourse_Course_ObsList.contains(courseName)){
+                        classCourse_Course_ObsList.add(courseName);
+                    }
                 }
 
 
@@ -849,6 +867,103 @@ public class AdminController implements Initializable {
         }
     }
 
+    @FXML
+    public void loadClassCourseData(ActionEvent event) {
 
 
+//        String query = "SELECT * from class_course as cc join class on cc.class_id = class.class_id join course on cc.course_id= course.course_id;";
+        String query = "SELECT cc.class_id, cc.course_id, class.name, course.name from class_course as cc \n" +
+                "join class on cc.class_id = class.class_id join course on cc.course_id= course.course_id";
+        try {
+            Connection conn = dbConnection.getConnection();
+            this.classCourseList = FXCollections.observableArrayList();
+
+            ResultSet rs = conn.createStatement().executeQuery(query);
+
+            while (rs.next()) {
+                this.classCourseList.add(new ClassCourseData(
+//                        String.valueOf(idCounter++),
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getString(3),
+                        rs.getString(4)
+                ));
+
+            }
+        } catch (SQLException er) {
+            er.printStackTrace();
+        }
+
+        this.classCourse_classIDColumn.setCellValueFactory(new PropertyValueFactory<>("classCourse_ClassID"));
+        this.classCourse_courseIDColumn.setCellValueFactory(new PropertyValueFactory<>("classCourse_Course_ID"));
+        this.classCourse_classNameColumn.setCellValueFactory(new PropertyValueFactory<>("classCourse_ClassName"));
+        this.classCourse_courseNameColumn.setCellValueFactory(new PropertyValueFactory<>("classCourse_CourseName"));
+
+        this.listOfClassCourse.setItems(null);
+        this.listOfClassCourse.setItems(this.classCourseList);
+
+        this.classCourseList.toString();
+        idCounter = 1;
+
+
+    }
+
+
+    public void addClassCourse(ActionEvent event) {
+
+        String c="", cl="";
+        String clID="", coID="";
+
+        if (    (classCourse_Class_combobox.getValue() == null) ||
+                (classCourse_Course_combobox.getValue() == null)){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Niepoprawny wybór");
+            alert.setHeaderText("Wybierz wszystkie pola");
+            alert.showAndWait();
+        } else{
+             c = classCourse_Class_combobox.getValue().toString();
+             cl = classCourse_Course_combobox.getValue().toString();
+        }
+        //znajdz ID dla klasy
+        String qu1 = "SELECT class_id from class where remarks=? ;";
+
+
+        try{
+            PreparedStatement p1 = dbConnection.getConnection().prepareStatement(qu1);
+            p1.setString(1, c);
+            ResultSet rs1 = p1.executeQuery();
+
+            while(rs1.next()){
+                clID  = rs1.getString(1);
+                System.out.println(clID);
+            }
+
+        //znajdz ID dla kursu
+        String qu2 = "SELECT course_id from course where name=?;";
+
+            PreparedStatement p2 = dbConnection.getConnection().prepareStatement(qu2);
+            p2.setString(1, cl);
+            ResultSet rs2 = p2.executeQuery();
+
+            while(rs2.next()){
+                coID = rs2.getString(1);
+                System.out.println(coID);
+            }
+
+
+        // dodajemy do bazy
+            String insertQu = "INSERT INTO class_course(class_id, course_id) values (?,?);";
+            PreparedStatement p3 = dbConnection.getConnection().prepareStatement(insertQu);
+            p3.setString(1, clID);
+            p3.setString(2, coID);
+
+            p3.execute();
+
+
+            classCourseLoadListBtn.fire();
+
+        } catch (SQLException e){ e.printStackTrace(); }
+
+
+    }
 }
