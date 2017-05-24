@@ -53,7 +53,7 @@ public class LoginController implements Initializable{
     public void login(ActionEvent event){
         try {
             if (true)
-//            if (this.loginModel.isLogin(
+//            if (this.loginModel.checkLoginData(
 //                    this.username.getText(),
 //                    this.password.getText(),
 //                    ((role)this.role.getValue()).toString()

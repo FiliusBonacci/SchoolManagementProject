@@ -45,7 +45,7 @@
                                     <Insets left="70.0" />
                                  </VBox.margin>
                               </Label>
-                              <TextField fx:id="idField" prefHeight="41.0" prefWidth="279.0" promptText="ID">
+                              <TextField fx:id="idField" disable="true" prefHeight="41.0" prefWidth="279.0" promptText="ID">
                                  <padding>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
@@ -463,7 +463,7 @@
                                     <Insets bottom="10.0" left="10.0" right="10.0" />
                                  </VBox.margin>
                               </Button>
-                              <Button fx:id="deleteClassBtn1" mnemonicParsing="false" onAction="#deleteClass" prefHeight="25.0" prefWidth="270.0" style="-fx-background-color: #ff4f4f;" text="Usuń" textFill="WHITE">
+                              <Button fx:id="deleteClassBtn1" mnemonicParsing="false" onAction="#deleteClassCourse" prefHeight="25.0" prefWidth="270.0" style="-fx-background-color: #ff4f4f;" text="Usuń" textFill="WHITE">
                                  <opaqueInsets>
                                     <Insets left="10.0" right="10.0" />
                                  </opaqueInsets>

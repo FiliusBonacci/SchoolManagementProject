@@ -229,18 +229,35 @@ public class AdminController implements Initializable {
 
     @FXML
     public void addStudent(ActionEvent actionEvent) {
-        String insertQuery = "insert into students(student_id, firstname, lastname, birthDay, email, password) " +
-                "values (?,?,?,?,?,?)";
+        String insertQuery = "insert into students(firstname, lastname, birthDay, email, password) " +
+                "values (?,?,?,?,?)";
         try {
             Connection conn = dbConnection.getConnection();
             PreparedStatement stm = conn.prepareStatement(insertQuery);
 
-            stm.setString(1, String.valueOf(this.idField.getText()));
-            stm.setString(2, String.valueOf(AdminController.this.firstNameField.getText()));
-            stm.setString(3, String.valueOf(AdminController.this.lastNameField.getText()));
-            stm.setString(4, String.valueOf(AdminController.this.birthDayField.getEditor().getText()));
-            stm.setString(5, String.valueOf(AdminController.this.emailField.getText()));
-            stm.setString(6, String.valueOf(AdminController.this.passwordField.getText()));
+            // walidacja danych
+            if (containsDigit(this.firstNameField.getText())){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Niewłaściwe dane");
+                alert.setHeaderText("Dane nie mogą zawierać cyfr");
+                alert.showAndWait();
+            }
+
+            if (!isEmail(this.emailField.getText())){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Niewłaściwe dane");
+                alert.setHeaderText("Email się nie zgadza");
+                alert.showAndWait();
+            }
+
+
+
+//            stm.setString(1, String.valueOf(this.idField.getText()));
+            stm.setString(1, String.valueOf(AdminController.this.firstNameField.getText()));
+            stm.setString(2, String.valueOf(AdminController.this.lastNameField.getText()));
+            stm.setString(3, String.valueOf(AdminController.this.birthDayField.getEditor().getText()));
+            stm.setString(4, String.valueOf(AdminController.this.emailField.getText()));
+            stm.setString(5, String.valueOf(AdminController.this.passwordField.getText()));
 
             stm.execute();
             conn.close();
@@ -649,7 +666,28 @@ public class AdminController implements Initializable {
 
         if (classCourse_tab.isSelected()){
             loadClassCourseCombo();
-            System.out.println("w ifie");
+
+        }
+        //--------------------------------
+        if (classCourse_tab.isSelected()){
+            ObservableList<ClassCourseData> selectedRow = listOfClassCourse.getSelectionModel().getSelectedItems();
+            // ---------------
+
+            selectedRow.addListener(new ListChangeListener() {
+                @Override
+                public void onChanged(Change c)  {
+
+                    try {
+                        ClassCourseData selectedR = listOfClassCourse.getSelectionModel().getSelectedItem();
+                        String cl = selectedR.getClassCourse_ClassName();
+                        String co = selectedR.getClassCourse_CourseName();
+
+                        classCourse_Class_combobox.getSelectionModel().select(cl);
+                        classCourse_Course_combobox.getSelectionModel().select(co);
+
+                    } catch (NullPointerException e) { }
+                }
+            });
         }
     }
 
@@ -698,6 +736,7 @@ public class AdminController implements Initializable {
     }
     @FXML
     public void deleteCourse(ActionEvent event) {
+
     }
     @FXML
     public void loadCourseData(ActionEvent event) {
@@ -735,7 +774,6 @@ public class AdminController implements Initializable {
 
     public void addCourse(ActionEvent event) {
     }
-
 
 
     // ------- załaduj comboboxa z bazy
@@ -965,5 +1003,66 @@ public class AdminController implements Initializable {
         } catch (SQLException e){ e.printStackTrace(); }
 
 
+    }
+
+
+    @FXML
+    public void deleteClassCourse(ActionEvent event){
+
+        String cl="", co="";
+
+        if ((classCourse_Class_combobox.getValue() != null) &&
+                (classCourse_Course_combobox.getValue() != null))
+        {
+            cl = classCourse_Class_combobox.getValue().toString();
+            co = classCourse_Course_combobox.getValue().toString();
+
+            String delquery = "DELETE from class_course where class_id=? and course_id=?;";
+
+            try {
+                Connection conn = dbConnection.getConnection();
+                ClassCourseData selectedR = listOfClassCourse.getSelectionModel().getSelectedItem();
+                int clID = selectedR.getClassCourse_ClassID();
+                int coID = selectedR.getClassCourse_Course_ID();
+
+                PreparedStatement delstm = conn.prepareStatement(delquery);
+                delstm.setString(1, String.valueOf(clID));
+                delstm.setString(2, String.valueOf(coID));
+
+                delstm.execute();
+
+            } catch(SQLException r){
+                r.printStackTrace();
+            }
+
+
+        }
+    }
+    public final boolean containsDigit(String s) {
+        boolean containsDigit = false;
+
+        if (s != null && !s.isEmpty()) {
+            for (char c : s.toCharArray()) {
+                if (containsDigit = Character.isDigit(c)) {
+                    break;
+                }
+            }
+        }
+
+        return containsDigit;
+    }
+
+    public final boolean isEmail(String s) {
+        boolean isEmail = false;
+
+        if (s != null && !s.isEmpty()) {
+
+            if ( s.contains("@") ) {
+                return true;
+            }
+
+        }
+
+        return isEmail;
     }
 }
